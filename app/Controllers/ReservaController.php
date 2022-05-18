@@ -15,13 +15,16 @@ use App\Models\Reservaciones;
  *
  * @author abel4
  */
-class ReservaController extends BaseController {
+class ReservaController extends BaseController
+{
 
-    public function index() {
+    public function index()
+    {
         return $this->view->render('Reservas/index');
     }
 
-    public function cargar_actividades() {
+    public function cargar_actividades()
+    {
         $uri = service('uri');
         $get = $uri->getSegment(3);
         $params = array();
@@ -60,7 +63,8 @@ class ReservaController extends BaseController {
         echo view('/Elements/Reserva/tabla_actividades', $params);
     }
 
-    public function agregar_actividades() {
+    public function agregar_actividades()
+    {
         if ($this->request->isAJAX()) {
             $data = $this->request->getPost('data');
 
@@ -72,7 +76,7 @@ class ReservaController extends BaseController {
             $arrSave["id"] = "";
             $arrSave["id_actividad"] = $data['id'];
             $arrSave["num_personas"] = $data['numero'];
-            $arrSave["precio"] = $dataActividad['0']->precio * $data['numero'];
+            $arrSave["precio"] = str_replace(array(',', '$'), array(''), $dataActividad['0']->precio) * $data['numero'];
             $arrSave["fecha"] = date("Y-m-d H:i:s");
             $arrSave["fecha_realizacion"] = $dataActividad['0']->fecha_inicial;
 
@@ -87,7 +91,8 @@ class ReservaController extends BaseController {
     }
 
     //put your code here
-    public function ver_reservas() {
+    public function ver_reservas()
+    {
         $data = array();
         $Ventas = new Ventas();
         $idUsu = $this->idUsu;
@@ -97,7 +102,8 @@ class ReservaController extends BaseController {
         return $this->view->setVar('data', $data)->render('Ventas/carrito');
     }
 
-    public function borrar_reserva() {
+    public function borrar_reserva()
+    {
         if ($this->request->isAJAX()) {
             $data = $this->request->getPost('data');
             //$this->log($data);
@@ -112,5 +118,4 @@ class ReservaController extends BaseController {
             echo json_encode($resp);
         }
     }
-
 }
