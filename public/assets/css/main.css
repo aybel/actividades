@@ -1,0 +1,16 @@
+footer {
+    position: fixed;
+    height: 100px;
+    bottom: 0;
+    width: 100%;
+}
+
+
+.fondo-login{
+    background-color: #9FBC90;
+
+}
+
+.img-header{
+    background-image: url('../img/siad-banner.png')
+}
