@@ -33,26 +33,29 @@
     $(function() {
 
         $("#btn_buscar").click(function() {
-            let params = {
-                fecha_inicial: "",
-                fecha_final: "",
-                numero_personas: ""
-            };
-            params.fecha_inicial = $("#fecha_inicial").val();
-            params.fecha_final = $("#fecha_final").val();
-            params.numero_personas = $("#numero_personas").val();
+
             //console.log(params);
-            if (params.fecha_inicial == "") {
+            if ($("#fecha_inicial").val() == "") {
                 sweetAlert("warning", "Advertencia", "Debe elegir una fecha inicial.");
                 return;
             }
-            cargar_actividades(params);
+            cargar_actividades();
         });
         //cargar_reservaciones();
 
     });
 
-    const cargar_actividades = (params) => {
+    const cargar_actividades = () => {
+
+        let params = {
+            fecha_inicial: "",
+            fecha_final: "",
+            numero_personas: ""
+        };
+        params.fecha_inicial = $("#fecha_inicial").val();
+        params.fecha_final = $("#fecha_final").val();
+        params.numero_personas = $("#numero_personas").val();
+
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
@@ -82,6 +85,7 @@
     };
 
     const reservar = (id, numero) => {
+        const numero = $("#numero_personas").val();
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
