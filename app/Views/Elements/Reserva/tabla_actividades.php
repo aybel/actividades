@@ -9,6 +9,7 @@
         </tr>
         <tr>
             <th class="text-center">Actividad</th>
+            <th class="text-center">Horario</th>
             <th class="text-center">Precio</th>
             <th class="text-center w-25">Opciones</th>
         </tr>
@@ -17,9 +18,14 @@
         <?php if (!empty($results)) { ?>
             <?php
             foreach ($results as $i => $row) {
-                ?>
+            ?>
                 <tr>
                     <td class="text-center"><?php echo $row->titulo ?></td>
+                    <td class="text-center">Inicia el <?php echo date_format(date_create($row->fecha_inicial), 'd-m-Y') ?> al 
+                    
+                    <?php echo date_format(date_create($row->fecha_final), 'd-m-Y') ?>
+                
+                </td>
                     <td class="text-right"><?php echo number_format($row->precio, 2) ?></td>
                     <td class="text-center">
                         <span onclick="reservar(<?php echo $row->id ?>,<?php echo $numero_personas ?>)" class="fa-solid fa-calendar-check" title="Reservar actividad"></span>
@@ -40,5 +46,3 @@
         </tr>
     </tfoot>
 </table>
-
-

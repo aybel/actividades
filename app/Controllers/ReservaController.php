@@ -71,6 +71,13 @@ class ReservaController extends BaseController
             $Actividades = new Actividades();
             $dataActividad = $Actividades->getActividaPrecio($data['id']);
 
+            if ($data['numero'] <= 0) {
+                $resp['clase'] = "warning";
+                $resp['msj'] = "Para reservar la actividad el número de personas debe ser mayor a cero.";
+                echo json_encode($resp);
+                return;
+            }
+
             $Reservaciones = new Reservaciones();
 
             $arrSave["id"] = "";
@@ -80,7 +87,7 @@ class ReservaController extends BaseController
             $arrSave["fecha"] = date("Y-m-d H:i:s");
             $arrSave["fecha_realizacion"] = $dataActividad['0']->fecha_inicial;
 
-            $this->log($arrSave);
+            //$this->log($arrSave);
             $Reservaciones->insert($arrSave);
 
             $resp['clase'] = "success";
@@ -90,32 +97,45 @@ class ReservaController extends BaseController
         }
     }
 
-    //put your code here
-    public function ver_reservas()
+    public function cargar_reservaciones()
     {
-        $data = array();
-        $Ventas = new Ventas();
-        $idUsu = $this->idUsu;
-        $idUsu = 1;
-        $data = $Ventas->getCarrito($idUsu);
-        //$this->log($data);
-        return $this->view->setVar('data', $data)->render('Ventas/carrito');
-    }
-
-    public function borrar_reserva()
-    {
-        if ($this->request->isAJAX()) {
-            $data = $this->request->getPost('data');
-            //$this->log($data);
-            $Ventas = new Ventas();
-            $dataBorrar = $Ventas->borrar_producto($data);
-            $actvidades = new actvidades();
-            $actvidades->actualizar_stock($dataBorrar['id_producto'], $dataBorrar['cantidad'], 'sumar');
-
-            $resp['clase'] = "success";
-            $resp['msj'] = "Producto eliminado del carrito.";
-
-            echo json_encode($resp);
+        $uri = service('uri');
+        $get = $uri->getSegment(3);
+        $params = array();
+        $conditions = array();
+        $limit_per_page = 20;
+        $page = $this->request->getPost('page');
+        $Reservaciones = new Reservaciones();
+        if (!$page) {
+            $offset = 0;
+        } else {
+            $offset = $page;
         }
+
+        if ($this->request->getPost("data")) { //ajax
+            $data = $this->request->getPost("data");
+            //$this->log($data);
+            $filters = array();
+            $total_records = 0;
+            if ($Reservaciones->getReservas($data)) {
+                $total_records = COUNT($Reservaciones->getReservas($data));
+            }
+            //log_message("error", $total_records);
+            $params['target'] = '#div_table_actividades';
+            $params['base_url'] = base_url() . '/ReservaController/cargar_reservaciones';
+            $params['total_rows'] = $total_records;
+            $params['per_page'] = $limit_per_page;
+            $params['loading'] = '#div_table_actividades';
+            $params["uri_segment"] = 4;
+            $this->ajax_pagination->initialize($params);
+            $conditions['start'] = $offset;
+            $conditions['limit'] = $limit_per_page;
+            $params['start'] = $offset;
+           
+            $params["results"] = $Reservaciones->getReservas($data);
+        }
+        echo view('/Elements/Reserva/ver_reservaciones', $params);
     }
+
+   
 }
