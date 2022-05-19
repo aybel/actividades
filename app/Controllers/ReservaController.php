@@ -71,7 +71,7 @@ class ReservaController extends BaseController
             $Actividades = new Actividades();
             $dataActividad = $Actividades->getActividaPrecio($data['id']);
 
-            if ($data['numero'] <= 0) {
+            if (!isset($data['numero']) || $data['numero'] <= 0) {
                 $resp['clase'] = "warning";
                 $resp['msj'] = "Para reservar la actividad el número de personas debe ser mayor a cero.";
                 echo json_encode($resp);
@@ -144,7 +144,7 @@ class ReservaController extends BaseController
             $data = $this->request->getPost('data');
             $Reservaciones = new Reservaciones();
             //$this->log($arrSave);
-            $Reservaciones->where('id',$data['id']);
+            $Reservaciones->where('id', $data['id']);
             $Reservaciones->delete($data);
 
             $resp['clase'] = "success";
