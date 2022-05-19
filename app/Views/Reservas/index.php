@@ -85,7 +85,7 @@
     };
 
     const reservar = (id, numero) => {
-        const numero = $("#numero_personas").val();
+        let numero = $("#numero_personas").val();
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
