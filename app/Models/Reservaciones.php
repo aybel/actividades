@@ -9,7 +9,8 @@ use CodeIgniter\Model;
  *
  * @author abel4
  */
-class Reservaciones extends Model {
+class Reservaciones extends Model
+{
 
     protected $table = 'reservaciones';
     protected $primaryKey = 'id';
@@ -17,13 +18,14 @@ class Reservaciones extends Model {
     protected $returnType = 'object';
     protected $useSoftDeletes = true;
     protected $allowedFields = [
-        'id', 'id_actividad', 'num_personas', 'precio', 'created_at','fecha_realizacion'
+        'id', 'id_actividad', 'num_personas', 'precio', 'created_at', 'fecha_realizacion', 'bborrado'
     ];
     protected $useTimestamps = true;
     protected $validationMessages = [];
     protected $skipValidation = false; //Escapar validaciones
 
-    protected function initialize() {
+    protected function initialize()
+    {
         $this->Logs = \Config\Services::logger();
     }
 
@@ -42,7 +44,8 @@ class Reservaciones extends Model {
 
             ]
         );
-        $Reservaciones->join('actividades','actividades.id=reservaciones.id_actividad','INNER');
+        $Reservaciones->join('actividades', 'actividades.id=reservaciones.id_actividad', 'INNER');
+        $Reservaciones->where(['bborrado' => 0]);
         $Reservaciones->orderBy('reservaciones.id DESC');
         $data = $Reservaciones->get()->getResultObject();
         return $data;
@@ -66,6 +69,4 @@ class Reservaciones extends Model {
         $data = $Actividades->get()->getResultObject();
         return $data;
     }
-
-    
 }

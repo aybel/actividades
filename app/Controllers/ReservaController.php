@@ -144,8 +144,12 @@ class ReservaController extends BaseController
             $id = $this->request->getPost('data');
             $Reservaciones = new Reservaciones();
             //$this->log($arrSave);
+
+            $dataBorrado['id'] = $id;
+            $dataBorrado['bborrado'] = 1;
+
             $Reservaciones->where('id', $id);
-            $Reservaciones->delete();
+            $Reservaciones->update($dataBorrado);
 
             $resp['clase'] = "success";
             $resp['msj'] = "Reservación borrada.";
