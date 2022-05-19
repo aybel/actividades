@@ -141,14 +141,14 @@ class ReservaController extends BaseController
     public function borrar()
     {
         if ($this->request->isAJAX()) {
-            $data = $this->request->getPost('data');
+            $id = $this->request->getPost('data');
             $Reservaciones = new Reservaciones();
             //$this->log($arrSave);
-            $Reservaciones->where('id', $data['id']);
-            $Reservaciones->delete($data);
+            $Reservaciones->where('id', $id);
+            $Reservaciones->delete();
 
             $resp['clase'] = "success";
-            $resp['msj'] = "Revervación borrada.";
+            $resp['msj'] = "Reservación borrada.";
 
             echo json_encode($resp);
         }
