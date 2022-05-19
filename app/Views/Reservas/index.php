@@ -98,6 +98,7 @@
                 },
                 success: function(data) {
                     resolve(data);
+                    console.log(data);
                     const result = JSON.parse(data);
                     sweetAlert(result.clase, "Mensaje", result.msj);
                     cargar_reservaciones();
@@ -140,6 +141,5 @@
             });
         });
     };
-
 </script>
 <?php $this->endSection() ?>
