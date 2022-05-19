@@ -48,7 +48,7 @@
             }
             cargar_actividades(params);
         });
-        cargar_reservaciones();
+        //cargar_reservaciones();
 
     });
 
