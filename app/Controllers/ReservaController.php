@@ -121,11 +121,11 @@ class ReservaController extends BaseController
                 $total_records = COUNT($Reservaciones->getReservas($data));
             }
             //log_message("error", $total_records);
-            $params['target'] = '#div_table_actividades';
+            $params['target'] = '#div_table_reservaciones';
             $params['base_url'] = base_url() . '/ReservaController/cargar_reservaciones';
             $params['total_rows'] = $total_records;
             $params['per_page'] = $limit_per_page;
-            $params['loading'] = '#div_table_actividades';
+            $params['loading'] = '#div_table_reservaciones';
             $params["uri_segment"] = 4;
             $this->ajax_pagination->initialize($params);
             $conditions['start'] = $offset;
