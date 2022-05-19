@@ -27,7 +27,7 @@ class Reservaciones extends Model {
         $this->Logs = \Config\Services::logger();
     }
 
-    public function getReservas()
+    public function getReservas($data)
     {
         $Reservaciones = new Reservaciones();
         $Reservaciones->select(
