@@ -85,7 +85,7 @@
     };
 
     const reservar = (id, numero) => {
-        let numero = $("#numero_personas").val();
+        let num = $("#numero_personas").val();
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
@@ -94,7 +94,7 @@
                 data: {
                     data: {
                         id: id,
-                        numero: numero
+                        numero: num
                     }
                 },
                 beforeSend: function(XMLHttpRequest) {
