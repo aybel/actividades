@@ -160,7 +160,7 @@
                         url: PRY_FULL_URL + '/ReservaController/borrar',
                         datatype: 'html',
                         data: {
-                            data: id
+                            id
                         },
                         beforeSend: function(XMLHttpRequest) {
                             $('#ContenedorLoading').ajaxloader();
