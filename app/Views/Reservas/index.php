@@ -128,7 +128,7 @@
                     resolve(data);
                     $("#div_table_reservaciones").empty();
                     $("#div_table_reservaciones").html(data);
-                    //console.log(data);
+                    console.log(data);
                 },
                 complete: function() {
                     $('#ContenedorLoading').ajaxloader('hide');
