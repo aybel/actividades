@@ -131,11 +131,26 @@ class ReservaController extends BaseController
             $conditions['start'] = $offset;
             $conditions['limit'] = $limit_per_page;
             $params['start'] = $offset;
-           
+
             $params["results"] = $Reservaciones->getReservas($data);
         }
         echo view('/Elements/Reserva/ver_reservaciones', $params);
     }
 
-   
+
+    public function borrar()
+    {
+        if ($this->request->isAJAX()) {
+            $data = $this->request->getPost('data');
+            $Reservaciones = new Reservaciones();
+            //$this->log($arrSave);
+            $Reservaciones->where('id',$data['id']);
+            $Reservaciones->delete($data);
+
+            $resp['clase'] = "success";
+            $resp['msj'] = "Revervación borrada.";
+
+            echo json_encode($resp);
+        }
+    }
 }

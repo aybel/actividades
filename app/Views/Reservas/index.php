@@ -141,5 +141,48 @@
             });
         });
     };
+    const borrar = (id) => {
+
+        Swal.fire({
+            title: '¿Está seguro de borrar la reservación?',
+            text: "No podrá revertir esta acción",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        type: 'POST',
+                        url: PRY_FULL_URL + '/ReservaController/borrar',
+                        datatype: 'html',
+                        data: {
+                            data: id
+                        },
+                        beforeSend: function(XMLHttpRequest) {
+                            $('#ContenedorLoading').ajaxloader();
+                        },
+                        success: function(data) {
+                            resolve(data);
+                            cargar_reservaciones();
+                            console.log(data);
+                        },
+                        complete: function() {
+                            $('#ContenedorLoading').ajaxloader('hide');
+                        },
+                        error: function() {
+                            reject("error");
+                            sweetAlert('error', 'Ocurrió un error, consultar con el administrador del sistema.');
+                        }
+                    });
+                });
+            }
+        });
+
+
+    };
 </script>
 <?php $this->endSection() ?>
