@@ -1,7 +1,7 @@
 <?php
 // Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
-
+header('Access-Control-Allow-Origin: *');
 /*
  *---------------------------------------------------------------
  * BOOTSTRAP THE APPLICATION
