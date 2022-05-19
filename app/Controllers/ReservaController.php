@@ -145,7 +145,7 @@ class ReservaController extends BaseController
             $Reservaciones = new Reservaciones();
             //$this->log($arrSave);
 
-            $dataBorrado['id'] = $id;
+           
             $dataBorrado['bborrado'] = 1;
 
             $Reservaciones->where('id', $id);
