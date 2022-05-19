@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'ReservaController::index');
 $routes->post('ReservaController/cargar_reservaciones', 'ReservaController::cargar_reservaciones');
+$routes->post('ReservaController/agregar_actividades', 'ReservaController::agregar_actividades');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
