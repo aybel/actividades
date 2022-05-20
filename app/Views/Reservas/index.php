@@ -30,13 +30,17 @@
     <div id="div_table_reservaciones"></div>
 </div>
 <script type="text/javascript">
-    $(function() {
+    $(function () {
 
-        $("#btn_buscar").click(function() {
+        $("#btn_buscar").click(function () {
 
             //console.log(params);
             if ($("#fecha_inicial").val() == "") {
                 sweetAlert("warning", "Advertencia", "Debe elegir una fecha inicial.");
+                return;
+            }
+            if ($("#numero_personas").val() == "") {
+                sweetAlert("warning", "Advertencia", "Debe capturar el número de personas.");
                 return;
             }
             cargar_actividades();
@@ -64,19 +68,19 @@
                 data: {
                     data: params
                 },
-                beforeSend: function(XMLHttpRequest) {
+                beforeSend: function (XMLHttpRequest) {
                     $('#ContenedorLoading').ajaxloader();
                 },
-                success: function(data) {
+                success: function (data) {
                     resolve(data);
                     $("#div_table_actividades").empty();
                     $("#div_table_actividades").html(data);
                     //console.log(data);
                 },
-                complete: function() {
+                complete: function () {
                     $('#ContenedorLoading').ajaxloader('hide');
                 },
-                error: function() {
+                error: function () {
                     reject("error");
                     sweetAlert('error', 'Ocurrió un error, consultar con el administrador del sistema.');
                 }
@@ -97,20 +101,20 @@
                         numero: num
                     }
                 },
-                beforeSend: function(XMLHttpRequest) {
+                beforeSend: function (XMLHttpRequest) {
                     $('#ContenedorLoading').ajaxloader();
                 },
-                success: function(data) {
+                success: function (data) {
                     resolve(data);
                     console.log(data);
                     const result = JSON.parse(data);
                     sweetAlert(result.clase, "Mensaje", result.msj);
                     cargar_reservaciones();
                 },
-                complete: function() {
+                complete: function () {
                     $('#ContenedorLoading').ajaxloader('hide');
                 },
-                error: function() {
+                error: function () {
                     reject("error");
                     sweetAlert('error', "Mensaje", 'Ocurrió un error, consultar con el administrador del sistema.');
                 }
@@ -126,19 +130,19 @@
                 data: {
                     data: 1
                 },
-                beforeSend: function(XMLHttpRequest) {
+                beforeSend: function (XMLHttpRequest) {
                     $('#ContenedorLoading').ajaxloader();
                 },
-                success: function(data) {
+                success: function (data) {
                     resolve(data);
                     $("#div_table_reservaciones").empty();
                     $("#div_table_reservaciones").html(data);
                     console.log(data);
                 },
-                complete: function() {
+                complete: function () {
                     $('#ContenedorLoading').ajaxloader('hide');
                 },
-                error: function() {
+                error: function () {
                     reject("error");
                     sweetAlert('error', 'Ocurrió un error, consultar con el administrador del sistema.');
                 }
@@ -166,18 +170,18 @@
                         data: {
                             id
                         },
-                        beforeSend: function(XMLHttpRequest) {
+                        beforeSend: function (XMLHttpRequest) {
                             $('#ContenedorLoading').ajaxloader();
                         },
-                        success: function(data) {
+                        success: function (data) {
                             resolve(data);
                             cargar_reservaciones();
                             console.log(data);
                         },
-                        complete: function() {
+                        complete: function () {
                             $('#ContenedorLoading').ajaxloader('hide');
                         },
-                        error: function() {
+                        error: function () {
                             reject("error");
                             sweetAlert('error', 'Ocurrió un error, consultar con el administrador del sistema.');
                         }
